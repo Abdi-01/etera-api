@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "5b7be260-7a86-41eb-9382-52e21da5cbd0",
+		"name": "etera-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/fiqry/Pictures/store image web/b2.jpg"
+						},
+						{
+							"key": "data",
+							"value": "{\n    \"idmarking\": \"MRK-mkmk\",\n    \"fullname\": \"Andy\",\n    \"email\": \"andy@mail.com\",\n    \"noWhatsapp\": \"00921\",\n    \"password\": \"asd\",   \n    \"provinsi\": \"jakarta\",\n    \"kota\": \"jkt\",\n    \"kecamatan\": \"tanah abang\",\n    \"address\": \"jkt jl. merpati\"\n}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/users/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users/getall",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ID Marking Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users/check/2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"check",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik1SSy1ta21rIiwic3RhdHVzIjoidW52ZXJpZmllZCIsImlhdCI6MTYwNTU5OTQ4OCwiZXhwIjoxNjA1NjQyNjg4fQ.4Z0Mb9jW32FKLM3uQo33qTQJRGGb9OI2wg2tSgNN_D8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users/verification",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"verification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idmarking\": \"MRK-mkmk\",\r\n    \"password\": \"asds\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Keeplogin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik1SSy1ta21rIiwic3RhdHVzIjoidW52ZXJpZmllZCIsImlhdCI6MTYwNTU5OTQ4OCwiZXhwIjoxNjA1NjQyNjg4fQ.4Z0Mb9jW32FKLM3uQo33qTQJRGGb9OI2wg2tSgNN_D8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users/keeplogin",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"keeplogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reverification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik1SSy1ta21rIiwic3RhdHVzIjoidW52ZXJpZmllZCIsImlhdCI6MTYwNTU5OTQ4OCwiZXhwIjoxNjA1NjQyNjg4fQ.4Z0Mb9jW32FKLM3uQo33qTQJRGGb9OI2wg2tSgNN_D8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idmarking\": \"MRK-mkmk\",\r\n    \"noWhatsapp\": \"00921\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/users/re-verification",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"re-verification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Reset Password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik1SSy1ta21rIiwic3RhdHVzIjoidW52ZXJpZmllZCIsImlhdCI6MTYwNTU5OTQ4OCwiZXhwIjoxNjA1NjQyNjg4fQ.4Z0Mb9jW32FKLM3uQo33qTQJRGGb9OI2wg2tSgNN_D8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idmarking\": \"MRK-mkmk\",\r\n    \"noWhatsapp\": \"00921\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/users/reset",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik1SSy1ta21rIiwic3RhdHVzIjoidmVyaWZpZWQiLCJpYXQiOjE2MDU2NjkyNDYsImV4cCI6MTYwNTcxMjQ0Nn0.NmpcE8NRo8pDQK8v8xMMYt5eQ_r8udoG3U7iiLKryxk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fullname\": \"polaj\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/users/update-user",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"update-user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
