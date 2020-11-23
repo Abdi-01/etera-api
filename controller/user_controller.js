@@ -29,11 +29,25 @@ module.exports = {
         let { image } = req.files;
         data.image_ktp = image ? path + "/" + image[0].filename : null;
         let query = `INSERT INTO users SET ?`;
-        await dbquery(query, {
+        let results = await dbquery(query, {
           ...data,
           password: bcrypt.hashSync(data.password, 10),
         });
-        client.sendMessage("6288902080834@c.us", "Thanks!");
+        let dataForToken = {
+          iduser: results.insertId,
+          idmarking: data.idmarking,
+          role: "user",
+          status: "unverified",
+        };
+        console.log("dataToken", dataForToken);
+        let token = createToken(dataForToken);
+        client.sendMessage(
+          `${data.noWhatsapp}@c.us`,
+          `Hai, ${data.fullname}
+          \nThank you for your register at Etera Trade.
+          \nClick this link below for verified your account :          
+          \n${process.env.FRONTEND_URL}/verification/${token}`
+        );
         await db.commit(
           res.status(200).send({
             messages: "Processing Registration",
@@ -71,7 +85,7 @@ module.exports = {
     let dataForToken = {
       iduser: results[0].iduser,
       idmarking: results[0].idmarking,
-      roleid: results[0].roleid,
+      role: results[0].role,
       status: "verified",
     };
     let token = createToken(dataForToken);
@@ -89,7 +103,7 @@ module.exports = {
         let dataForToken = {
           iduser: results[0].iduser,
           idmarking: results[0].idmarking,
-          roleid: results[0].roleid,
+          role: results[0].role,
           status: results[0].status,
         };
         let token = req.body.keepLogin
@@ -129,13 +143,29 @@ module.exports = {
       ]);
       if (results.length !== 0) {
         //kirim link verification WA
-        res.status(200).send("KIRIM LINK WA");
+        let dataForToken = {
+          iduser: results[0].iduser,
+          idmarking: results[0].idmarking,
+          role: results[0].role,
+          status: results[0].status,
+        };
+        console.log("dataToken", dataForToken);
+        let token = createToken(dataForToken);
+        client.sendMessage(
+          `${req.body.noWhatsapp}@c.us`,
+          `Your new verification account at Etera Trade.
+          \nClick this link below for verified your account :
+          \n${process.env.FRONTEND_URL}/verification/${token}`
+        );
+        res
+          .status(200)
+          .send({ messages: "Request Success", success: true, error: null });
       } else {
         res.status(200).send({ messages: "User Not Found" });
       }
     } catch (err) {
       console.log(err);
-      res.status(200).send(err);
+      res.status(500).send({ messages: "Error Request", error: err });
     }
   },
   requestForgotPassword: async (req, res) => {
@@ -147,18 +177,33 @@ module.exports = {
       ]);
       if (results.length !== 0) {
         //kirim link verification WA
-        res.status(200).send("KIRIM LINK WA");
+        let dataForToken = {
+          iduser: results[0].iduser,
+          idmarking: results[0].idmarking,
+          role: results[0].role,
+          status: results[0].status,
+        };
+        console.log("dataToken", dataForToken);
+        let token = createToken(dataForToken);
+        client.sendMessage(
+          `${req.body.noWhatsapp}@c.us`,
+          `Your new verification account at Etera Trade.
+          \nClick this link below for verified your account :          
+          \n${process.env.FRONTEND_URL}/verification/${token}`
+        );
+        res
+          .status(200)
+          .send({ messages: "Request Success", success: true, error: null });
       } else {
         res.status(200).send({ messages: "User Not Found" });
       }
     } catch (err) {
       console.log(err);
-      res.status(200).send(err);
+      res.status(500).send({ messages: "Error Request", error: err });
     }
   },
   resetPassword: async (req, res) => {
     try {
-      console.log(req.user)
       let query = `UPDATE users SET password = ? WHERE idmarking = "${req.user.idmarking}" AND iduser = ${req.user.iduser}`;
       await dbquery(query, bcrypt.hashSync(req.body.password, 10));
       res.status(200).send({ messages: "Update Password" });
