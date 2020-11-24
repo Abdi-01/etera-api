@@ -5,7 +5,7 @@ const bearerToken = require("express-bearer-token");
 const PORT = process.env.PORT;
 const cors = require("cors");
 const moment = require("moment");
-const { user_router } = require("./router");
+const { user_router, packing_router, dbstock_router } = require("./router");
 
 const fs = require("fs");
 const client = require("./client");
@@ -79,6 +79,8 @@ client.on("message", async (msg) => {
 });
 
 app.use("/users", user_router);
+app.use("/packing", packing_router);
+app.use("/dbstock", dbstock_router);
 app.get("/", (req, res) => {
   res.status(200).send(Qr);
 });
