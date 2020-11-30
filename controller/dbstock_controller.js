@@ -7,6 +7,7 @@ const { uploader } = require("../support/uploader");
 const { createToken } = require("../support/jwt");
 const currentTime = () => moment().utc().format("YYYY-MM-DD hh:mm:ss");
 const client = require("../client");
+const fs = require("fs");
 
 module.exports = {
   getAll: async (req, res) => {

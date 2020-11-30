@@ -31,7 +31,7 @@ module.exports = {
     client.on("message", async (msg) => {
       switch (msg.body.toLowerCase()) {
         case "halo":
-          msg.reply("Apasih ?");
+          msg.reply("Berisik Lu Do!!!");
       }
     });
   },

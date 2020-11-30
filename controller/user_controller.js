@@ -7,6 +7,7 @@ const { uploader } = require("../support/uploader");
 const { createToken } = require("../support/jwt");
 const currentTime = () => moment().utc().format("YYYY-MM-DD hh:mm:ss");
 const client = require("../client");
+const fs = require("fs");
 
 module.exports = {
   getAll: async (req, res) => {
@@ -23,11 +24,13 @@ module.exports = {
       let upload = util.promisify(
         uploader(path, "IMG").fields([{ name: "image" }])
       );
+      let newData
       try {
         await upload(req, res);
         let data = JSON.parse(req.body.data);
         let { image } = req.files;
         data.image_ktp = image ? path + "/" + image[0].filename : null;
+        newData = data
         let query = `INSERT INTO users SET ?`;
         let results = await dbquery(query, {
           ...data,
@@ -56,8 +59,10 @@ module.exports = {
           })
         );
       } catch (err) {
+        console.log(err)
+        console.log(newData)
+        fs.unlinkSync("./public" + newData.image_ktp);
         res.status(500).send({ messages: "Error Register", error: err });
-        fs.unlinkSync("./public" + image_ktp);
         return db.rollback(err);
       }
     });
@@ -109,7 +114,7 @@ module.exports = {
         let token = req.body.keepLogin
           ? createToken(dataForToken)
           : createToken(dataForToken, { expiresIn: "12h" });
-        delete results.password;
+        delete results[0].password;
         res.status(200).send({
           messages: "Login Success",
           ...results[0],
