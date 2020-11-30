@@ -20,7 +20,7 @@
 						},
 						{
 							"key": "data",
-							"value": "{\n    \"idmarking\": \"MRK-mkmk\",\n    \"fullname\": \"Andy\",\n    \"email\": \"andy@mail.com\",\n    \"noWhatsapp\": \"00921\",\n    \"password\": \"asd\",   \n    \"provinsi\": \"jakarta\",\n    \"kota\": \"jkt\",\n    \"kecamatan\": \"tanah abang\",\n    \"address\": \"jkt jl. merpati\"\n}",
+							"value": "{\n    \"idmarking\": \"MRK-mkmk\",\n    \"fullname\": \"Admin\",\n    \"email\": \"admin@mail.com\",\n    \"noWhatsapp\": \"6288902080834\",\n    \"password\": \"asd\",   \n    \"provinsi\": \"Jakarta\",\n    \"kota\": \"Jakarta Pusat\",\n    \"kecamatan\": \"tanah abang\",\n    \"address\": \"jl. merpati no 02\"\n}",
 							"type": "text"
 						}
 					],
@@ -278,6 +278,290 @@
 					"path": [
 						"users",
 						"update-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Packing List / Purchase Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "pl_file",
+							"type": "file",
+							"src": "/C:/Users/fiqry/Documents/api etera rts.docx"
+						},
+						{
+							"key": "pl_image",
+							"type": "file",
+							"src": "/C:/Users/fiqry/Pictures/wallpaper/mobil.jpeg"
+						},
+						{
+							"key": "pl_image",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						},
+						{
+							"key": "data",
+							"value": "{\n    \"ordercode\": \"ORDER-1\",\n    \"idmarking\": \"M-2\",\n    \"itemname_eng\": \"Dragon Ball\",\n    \"itemname_china\": null,\n    \"spec\": \"Super\",\n    \"qty\": 10,\n    \"price\": 100000,\n    \"note\": \"Packing Yuk\",\n    \"supplier\": \"ASUS\",\n    \"supplier_contact\": null,\n    \"supplier_url\": null,\n    \"total_carton\": 10,\n    \"material\": \"Plastik\",\n    \"brand\": \"Asus\",\n    \"type\": \"PL\",\n}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/packing/packing-list/add",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"packing",
+						"packing-list",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Packing List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/packing/packing-list/all",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"packing",
+						"packing-list",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Packing List By Idmarking",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/packing/packing-list/M-2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"packing",
+						"packing-list",
+						"M-2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Packing List Confirm by Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik0tMiIsInJvbGUiOiJhZG1pbiIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2MDYxOTUzMjAsImV4cCI6MTYwNjIzODUyMH0.eBagZ5OzjUHbjWBEnHZMwx7W-B7Tss_CsvcMGxtBkVs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"Accepted\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/packing/packing-list/edit/3",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"packing",
+						"packing-list",
+						"edit",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Order Note",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik0tMiIsInJvbGUiOiJhZG1pbiIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2MDYxOTUzMjAsImV4cCI6MTYwNjIzODUyMH0.eBagZ5OzjUHbjWBEnHZMwx7W-B7Tss_CsvcMGxtBkVs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"ordercode\" : \"OD-1\",\r\n    \"idmarking\": \"M-2\",\r\n    \"itemname\": \"KA\",\r\n    \"nomor_resi\": \"RES-1\",\r\n    \"jumlah_koli\": 60,\r\n    \"weight_kg\": 10,\r\n    \"cbm_volume\": 20,\r\n    \"cont\": 4,\r\n    \"status\": \"Processing\",\r\n    \"note\": \"Hooook\",\r\n    \"invetr\": \"Ga tau\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/dbstock/order-note/add",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"dbstock",
+						"order-note",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Order Note ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik0tMiIsInJvbGUiOiJhZG1pbiIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2MDYxOTUzMjAsImV4cCI6MTYwNjIzODUyMH0.eBagZ5OzjUHbjWBEnHZMwx7W-B7Tss_CsvcMGxtBkVs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"ordercode\" : \"OD-1\",\r\n    \"idmarking\": \"M-2\",\r\n    \"itemname\": \"KA\",\r\n    \"nomor_resi\": \"RES-1\",\r\n    \"jumlah_koli\": 60,\r\n    \"weight_kg\": 10,\r\n    \"cbm_volume\": 20,\r\n    \"cont\": 4,\r\n    \"status\": \"Processing\",\r\n    \"note\": \"Hooook\",\r\n    \"invetr\": \"Ga tau\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/dbstock/database_stock/all",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"dbstock",
+						"database_stock",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order Note by Idmarking",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHVzZXIiOjEsImlkbWFya2luZyI6Ik0tMiIsInJvbGUiOiJhZG1pbiIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2MDYxOTUzMjAsImV4cCI6MTYwNjIzODUyMH0.eBagZ5OzjUHbjWBEnHZMwx7W-B7Tss_CsvcMGxtBkVs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"ordercode\" : \"OD-1\",\r\n    \"idmarking\": \"M-2\",\r\n    \"itemname\": \"KA\",\r\n    \"nomor_resi\": \"RES-1\",\r\n    \"jumlah_koli\": 60,\r\n    \"weight_kg\": 10,\r\n    \"cbm_volume\": 20,\r\n    \"cont\": 4,\r\n    \"status\": \"Processing\",\r\n    \"note\": \"Hooook\",\r\n    \"invetr\": \"Ga tau\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/dbstock/database_stock/get/M-2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"dbstock",
+						"database_stock",
+						"get",
+						"M-2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Broadcast Update Tiba",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"noWhatsapp\": \"6288299593943\",\r\n        \"idmarking\": \"MRK-1\",\r\n        \"resi_china\": \"09kk23\",\r\n        \"template_messages\": \"Hai\"\r\n    },\r\n        {\r\n        \"noWhatsapp\": \"6288902080834\",\r\n        \"idmarking\": \"MRK-2\",\r\n        \"resi_china\": \"ASDo2\",\r\n        \"template_messages\": \"Holla\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/dbstock/database_stock/update-tiba",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"dbstock",
+						"database_stock",
+						"update-tiba"
 					]
 				}
 			},

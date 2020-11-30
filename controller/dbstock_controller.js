@@ -10,6 +10,16 @@ const client = require("../client");
 const fs = require("fs");
 
 module.exports = {
+  sendBroadcastArrived: async (req, res) => {
+    try{
+      req.body.map(e => {
+        client.sendMessage(`${e.noWhatsapp}@c.us`,`${e.resi_china}`)
+      })
+      res.status(200).send({message: "success"})
+    }catch(err){
+      res.status(200).send({message: "Error send broadcast", error: err})
+    }
+  },
   getAll: async (req, res) => {
     try {
       if(req.user.role === "admin"){
@@ -46,20 +56,17 @@ module.exports = {
         results = await dbquery(
           `SELECT * FROM users WHERE idmarking = "${req.body.idmarking}"`
         );
+        console.log(results)
         client.sendMessage(`${results[0].noWhatsapp}@c.us`,
         `Hallo ${results[0].fullname}, barang kamu telah berada digudang China.
-        Dan berikut no resi kamu : ${req.body.nomor_resi}.
-        Selanjutnya silahkan pilih jalur untuk pengiriman dari China :
-        1. Jalur Resmi
-        2. Jalur Alternatif
-        3. Komplain
-        
-        Contoh balasan : 
-        Pilih jalur 1
-        Note : -
-        
-        Untuk komplain :
-        Komplain : -`);
+        \nDan berikut no resi kamu : ${req.body.nomor_resi}.
+        \nSelanjutnya silahkan pilih jalur untuk pengiriman dari China :
+        \n1. Jalur Resmi
+        \n2. Jalur Alternatif
+        \nContoh Format Balasan :
+        \nETERATRADE#JALUR#1#CODE1`
+        );
+        client.sendMessage(`${results[0].noWhatsapp}@c.us`, `ETERATRADE#JALUR#{PILIHANJALUR}#{ORDERCODE}`)
         res.status(200).send({ message: "Success" });
       } else {
         res.status(400).send({ message: "Bukan Admin Kau!" });

@@ -9,6 +9,7 @@
   "author": "fiqnh29",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.0",
     "base64-url": "^2.3.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

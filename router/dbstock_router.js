@@ -6,5 +6,5 @@ const { userAuthentication } = require("../support/jwt");
 router.post("/order-note/add", userAuthentication, dbstock_controller.add)
 router.get("/database_stock/all", userAuthentication, dbstock_controller.getAll)
 router.get("/database_stock/get/:IDMARKING", userAuthentication, dbstock_controller.getByIdMarking)
-
+router.post("/database_stock/update-tiba", dbstock_controller.sendBroadcastArrived)
 module.exports = router

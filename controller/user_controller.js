@@ -5,11 +5,23 @@ const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const { uploader } = require("../support/uploader");
 const { createToken } = require("../support/jwt");
-const currentTime = () => moment().utc().format("YYYY-MM-DD hh:mm:ss");
+const currentTime = () => moment().format("YYYY-MM-DD hh:mm:ss");
 const client = require("../client");
 const fs = require("fs");
+const { default: Axios } = require("axios");
 
 module.exports = {
+  getResi: async (req, res) => {
+    try {
+      let results = await Axios.get(
+        `https://office.rtsxpedisi.com/api/track/${req.params.RESI}`
+      );
+      console.log(results.data);
+      res.status(200).send(results.data);
+    } catch (err) {
+      res.status(500).send({ messages: "Error get resi", error: err });
+    }
+  },
   getAll: async (req, res) => {
     try {
       let results = await dbquery("SELECT * FROM users");
@@ -24,13 +36,13 @@ module.exports = {
       let upload = util.promisify(
         uploader(path, "IMG").fields([{ name: "image" }])
       );
-      let newData
+      let newData;
       try {
         await upload(req, res);
         let data = JSON.parse(req.body.data);
         let { image } = req.files;
         data.image_ktp = image ? path + "/" + image[0].filename : null;
-        newData = data
+        newData = data;
         let query = `INSERT INTO users SET ?`;
         let results = await dbquery(query, {
           ...data,
@@ -49,7 +61,7 @@ module.exports = {
           `Hai, ${data.fullname}
           \nThank you for your register at Etera Trade.
           \nClick this link below for verified your account :          
-          \n${process.env.FRONTEND_URL}/verification/${token}`
+          \n${process.env.FRONTEND_URL}/register?${token}`
         );
         await db.commit(
           res.status(200).send({
@@ -59,8 +71,8 @@ module.exports = {
           })
         );
       } catch (err) {
-        console.log(err)
-        console.log(newData)
+        console.log(err);
+        console.log(newData);
         fs.unlinkSync("./public" + newData.image_ktp);
         res.status(500).send({ messages: "Error Register", error: err });
         return db.rollback(err);
@@ -94,7 +106,7 @@ module.exports = {
       status: "verified",
     };
     let token = createToken(dataForToken);
-    res.status(200).send({ ...results[0], token });
+    res.status(200).send({ ...results[0], token, status: "verified" });
   },
   login: async (req, res) => {
     try {
@@ -160,7 +172,7 @@ module.exports = {
           `${req.body.noWhatsapp}@c.us`,
           `Your new verification account at Etera Trade.
           \nClick this link below for verified your account :
-          \n${process.env.FRONTEND_URL}/verification/${token}`
+          \n${process.env.FRONTEND_URL}/reverification?${token}`
         );
         res
           .status(200)
@@ -194,7 +206,7 @@ module.exports = {
           `${req.body.noWhatsapp}@c.us`,
           `Your new verification account at Etera Trade.
           \nClick this link below for verified your account :          
-          \n${process.env.FRONTEND_URL}/verification/${token}`
+          \n${process.env.FRONTEND_URL}/reset?${token}`
         );
         res
           .status(200)

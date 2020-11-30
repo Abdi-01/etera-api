@@ -36,8 +36,9 @@ CREATE TABLE `database_stock` (
   `status` varchar(45) NOT NULL DEFAULT 'Processing',
   `note` varchar(45) DEFAULT NULL,
   `invetr` varchar(45) DEFAULT NULL,
+  `jalur` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idorder`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +47,7 @@ CREATE TABLE `database_stock` (
 
 LOCK TABLES `database_stock` WRITE;
 /*!40000 ALTER TABLE `database_stock` DISABLE KEYS */;
-INSERT INTO `database_stock` VALUES (1,'OD-1','M-2','KA','RES-1',60,10,20,'2020-11-24 05:46:28',4,'Processing','Hooook','Ga tau'),(3,'OD-1','MRK-mkmk','KA','RES-1',60,10,20,'2020-11-24 05:53:30',4,'Processing','Hooook','Ga tau'),(4,'OD-1','M-2','KA','RES-1',60,10,20,'2020-11-24 05:54:21',4,'Processing','Hooook','Ga tau'),(5,'OD-1','MRK-mkmk','KA','RES-1',60,10,20,'2020-11-24 05:54:37',4,'Processing','Hooook','Ga tau');
+INSERT INTO `database_stock` VALUES (1,'ORDER-1','MRK-1','Kucing','RES-1',60,10,20,'2020-11-30 07:47:23',4,'Processing','Ini Kucing','Ga tau','resmi');
 /*!40000 ALTER TABLE `database_stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +78,7 @@ CREATE TABLE `packing` (
   `type` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`idpacking`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +87,7 @@ CREATE TABLE `packing` (
 
 LOCK TABLES `packing` WRITE;
 /*!40000 ALTER TABLE `packing` DISABLE KEYS */;
-INSERT INTO `packing` VALUES (3,'ORDER-1','M-2','Dragon Ball',NULL,'Super',10,100000,'Packing Yuk','ASUS',NULL,NULL,10,'Plastik','Asus','pl_file/FILE1606193243274.docx','PL','Accepted');
+INSERT INTO `packing` VALUES (1,'ORDER-1','MRK-1','Dragon Ball',NULL,'Super',10,100000,'Packing Yuk','ASUS',NULL,NULL,10,'Plastik','Asus','/pl_file/FILE1606711053502.docx','PL','Accepted');
 /*!40000 ALTER TABLE `packing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +112,7 @@ CREATE TABLE `packing_image` (
 
 LOCK TABLES `packing_image` WRITE;
 /*!40000 ALTER TABLE `packing_image` DISABLE KEYS */;
-INSERT INTO `packing_image` VALUES (1,3,'pl_file/IMG1606193243282.jpeg');
+INSERT INTO `packing_image` VALUES (1,1,'/pl_image/IMG1606711053506.jpeg');
 /*!40000 ALTER TABLE `packing_image` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +138,7 @@ CREATE TABLE `users` (
   `status` varchar(45) NOT NULL DEFAULT 'unverified',
   `role` varchar(45) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +147,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'M-2','Fiq','adel@mail.com','6288902080834','$2a$10$UXvXKSZOaBViuhuPV4mRbOKExla0wzEEQm.l6KEAmDnpyqDje9Wpi','/ktp/IMG1606121919234.jpg','Banten','Tangerang Selatan','Serpong','BSD','unverified','admin'),(2,'MRK-mkmk','Andy','andy@mail.com','00921','$2a$10$UXvXKSZOaBViuhuPV4mRbOKExla0wzEEQm.l6KEAmDnpyqDje9Wpi','/ktp/IMG1606195218489.jpg','jakarta','jkt','tanah abang','jkt jl. merpati','unverified','user');
+INSERT INTO `users` VALUES (1,'MRK-Admin','Admin','admin@mail.com','6288902080000','$2a$10$tZnym4xi30e/pwUr/7tHiewHIkTaBo5wsv5CRhp4vgqM/2lLlgify','/ktp/IMG1606456942386.jpg','Jakarta','Jakarta Pusat','tanah abang','jl. merpati no 02','verified','admin'),(2,'MRK-1','Wowo','wowo@mail.com','6288299593943','$2a$10$FdmdE4o3RCCH9wqhBIt3hOa8mflYtBY/oAnP2mBffxhp5tdnAlO0S','/ktp/IMG1606708139188.jpg','Jawa Barat','Bandung','Buah Hati','jl. Buah Hati No 1945','verified','user'),(3,'MRK-2','Adel','adel@mail.com','6288902080834','$2a$10$Kd66idqB8BJ1R8dGpEzuMOGMU4AS4LzJrJtAwIm68qZw5ccOTA/CC','/ktp/IMG1606730814386.jpg','Jawa Barat','Bandung','Buah Batu','jl. Buah Batu No 1945','verified','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -159,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-24 15:38:06
+-- Dump completed on 2020-11-30 18:46:30

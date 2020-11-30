@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const { uploader } = require("../support/uploader");
 const { createToken } = require("../support/jwt");
-const currentTime = () => moment().utc().format("YYYY-MM-DD hh:mm:ss");
+const currentTime = () => moment().format("YYYY-MM-DD hh:mm:ss");
 const client = require("../client");
 const fs = require("fs");
 
@@ -15,11 +15,21 @@ module.exports = {
       if (req.user.role === "admin") {
         let query = `UPDATE packing SET status = "${req.body.status}" WHERE idpacking = ${req.params.IDPACKING}`;
         await dbquery(query)
+        query = `SELECT * FROM packing WHERE idpacking = ${req.params.IDPACKING}`
+        let results = await dbquery(query)
+        query = `SELECT * FROM users WHERE idmarking = "${results[0].idmarking}"`
+        results = await dbquery(query)
+        client.sendMessage(
+          `${results[0].noWhatsapp}@c.us`,
+          `Hallo ${results[0].fullname}
+          \npesanan kamu di ${req.body.status} oleh Admin`
+        );
         res.status(200).send({message: "Success"});
       } else {
         res.status(400).send({ message: "Bukan Admin Kau!" });
       }
     } catch (err) {
+      console.log(err)
       res.status(500).send({message: "Error Update Status", error: err});
     }
   },
@@ -72,10 +82,10 @@ module.exports = {
       try {
         await uploadFile(req, res);
         if (req.files.pl_file) {
-          files = req.files.pl_file.map((e) => `pl_file/${e.filename}`);
+          files = req.files.pl_file.map((e) => `/pl_file/${e.filename}`);
         }
         if (req.files.pl_image) {
-          images = req.files.pl_image.map((e) => `pl_file/${e.filename}`);
+          images = req.files.pl_image.map((e) => `/pl_image/${e.filename}`);
         }
         let data = JSON.parse(req.body.data);
         let query = `INSERT INTO packing SET ?`;
@@ -84,7 +94,6 @@ module.exports = {
           file: files.length > 0 ? files[0] : null,
         });
         let img = images.map((e) => [results.insertId, e]);
-        console.log("img", img);
         query = `INSERT INTO packing_image (idpacking, image) VALUES ?`;
         results = await dbquery(query, [img]);
         await db.commit(
@@ -94,6 +103,12 @@ module.exports = {
         );
       } catch (err) {
         console.log(err);
+        files.map(e => {
+          fs.unlinkSync("./public/" + e);
+        })
+        images.map(e => {
+          fs.unlinkSync("./public/" + e);
+        })
         res.status(500).send(err);
         return db.rollback(err);
       }
